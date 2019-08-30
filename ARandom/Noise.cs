@@ -94,7 +94,7 @@ namespace ARandom
             for (ushort i = 0; i < ArraySize; i++)
             {
                 permutations[i] = temp[i];
-                permutations[2 * i] = temp[i];
+                permutations[i + ArraySize] = temp[i];
             }
         }
     }
