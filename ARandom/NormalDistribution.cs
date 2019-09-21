@@ -4,6 +4,9 @@ namespace ARandom
 {
     public partial class RandomGenerator
     {
+        private bool CreateBuffer;
+        private double GaussBuffer;
+
         /// <summary>
         /// Generates random number following normal distribution. 
         /// </summary>
@@ -11,16 +14,26 @@ namespace ARandom
         /// <param name="standardDev">Standard deviation of normal distribution.</param>
         /// <returns>Random number following normal distribution.</returns>
         /// <seealso cref="RandomGenerator.Next()"/>
-        public double NextGauss(double mean = -0.1, double standardDev = 0.2)
+        public double NextGauss(double mean = 1, double standardDev = 1)
         {
-            double a1 = 1 - this.NextDouble();
-            double a2 = 1 - this.NextDouble();
+            if (CreateBuffer ^= true)
+            {
+                double a1 = this.NextDouble();
+                double a2 = this.NextDouble();
 
-            if (a1 == 0) return 1;
+                double v1 = 2 * a1 - 1;
+                double v2 = 2 * a2 - 1;
 
-            double bmTransform = Math.Sqrt(-2 * Math.Log(a1)) * Math.Sin(2 * Math.PI * a2);
+                double w = v1 * v1 + v2 * v2;
 
-            return mean + standardDev * bmTransform;
+                double marsgaliaTransform =  Math.Sqrt(-2 * Math.Log(w) / w);
+
+                GaussBuffer = v1 * marsgaliaTransform;
+
+                return mean + standardDev * v2 * marsgaliaTransform;
+            }
+
+            return mean + standardDev * GaussBuffer;
         }
 
         /// <summary>
@@ -32,7 +45,7 @@ namespace ARandom
         /// <param name="standardDev">Standard deviation of normal distribution.</param>
         /// <returns>Random number following normal distribution remapped and constrained to match given range.</returns>
         /// <seealso cref="NextGauss(double, double)"/>
-        public double NextGaussRange(double min, double max, double mean = -0.1, double standardDev = 0.2)
+        public double NextGaussRange(double min, double max, double mean = 1, double standardDev = 1)
         {
             var (Min, Max) = Utilities.GetGaussianApproxRange(mean, standardDev);
             double result = (this.NextGauss() - Min) / (Max - Min) * (max - min) + min;

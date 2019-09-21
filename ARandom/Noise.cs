@@ -81,21 +81,14 @@ namespace ARandom
             noiseSeed = new double[ArraySize];
             permutations = new ushort[ArraySize * 2];
 
-            var temp = new ushort[ArraySize];
-
             for (ushort i = 0; i < ArraySize; i++)
             {
                 noiseSeed[i] = this.NextDouble();
-                temp[i] = i;
+                permutations[i] = i;
             }
 
-            this.ShuffleArray(temp);
-
-            for (ushort i = 0; i < ArraySize; i++)
-            {
-                permutations[i] = temp[i];
-                permutations[i + ArraySize] = temp[i];
-            }
+            this.ShuffleArray(permutations, 0, ArraySize);
+            Array.Copy(permutations, 0, permutations, ArraySize, ArraySize);
         }
     }
 }

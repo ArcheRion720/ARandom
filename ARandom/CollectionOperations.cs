@@ -22,15 +22,25 @@ namespace ARandom
         /// </summary>
         /// <typeparam name="T">The element type of the array.</typeparam>
         /// <param name="array">Array to shuffle.</param>
-        public void ShuffleArray<T>(T[] array)
+        /// <seealso cref="ShuffleArray{T}(T[], int, int)"/>
+        public void ShuffleArray<T>(T[] array) => ShuffleArray(array, 0, array.Length);
+
+        /// <summary>
+        /// Shuffles an array in specified range.
+        /// </summary>
+        /// <typeparam name="T">The element type of the array.</typeparam>
+        /// <param name="array">Array to shuffle.</param>
+        /// <param name="start">Upper inclusive bound of range.</param>
+        /// <param name="end">Bottom exclusive bound of range.</param>
+        public void ShuffleArray<T>(T[] array, int start, int end)
         {
             T temp;
             int index;
-            int n = array.Length;
 
-            while (n > 1)
+            int n = end;
+            while(n > start + 1)
             {
-                index = Next(n--);
+                index = this.Next(n--);
                 temp = array[n];
                 array[n] = array[index];
                 array[index] = temp;

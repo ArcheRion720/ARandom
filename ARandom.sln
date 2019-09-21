@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29209.152
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ARandom", "ARandom\ARandom.csproj", "{A78A9DE9-C68E-40F6-8126-127617922342}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ARandom", "ARandom\ARandom.csproj", "{A78A9DE9-C68E-40F6-8126-127617922342}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomTest", "RandomTest\RandomTest.csproj", "{B12B785E-D21F-4098-8894-4FEE280B577B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{A78A9DE9-C68E-40F6-8126-127617922342}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A78A9DE9-C68E-40F6-8126-127617922342}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A78A9DE9-C68E-40F6-8126-127617922342}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B12B785E-D21F-4098-8894-4FEE280B577B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B12B785E-D21F-4098-8894-4FEE280B577B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B12B785E-D21F-4098-8894-4FEE280B577B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B12B785E-D21F-4098-8894-4FEE280B577B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
