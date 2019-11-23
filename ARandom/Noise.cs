@@ -72,7 +72,7 @@ namespace ARandom
             return Lerp(ny0, ny1, sz);
         }
 
-        private static double SmoothStep(double value) => value * value * (3 - 2 * value);
+        private static double SmoothStep(double value) => value * value * value * (value * ( value * 6 - 15) + 10);
 
         private static double Lerp(double start, double stop, double delta) => start * (1 - delta) + stop * delta;
 

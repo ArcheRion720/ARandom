@@ -7,33 +7,63 @@ namespace ARandom
     /// </summary>
     public partial class RandomGenerator
     {
-        private long seed;
-        private const long multiplier = 0x8088405;
-        private const long increment = 0xC39EC3;
-        private const long modulus = 2147483647L;
 
         private static long DefaultSeed => Environment.TickCount;
+        private static INumberGenerator Generator { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RandomGenerator"/> class
         /// </summary>
-        public RandomGenerator() : this(DefaultSeed) { }
+        public RandomGenerator() : this(DefaultSeed, GeneratorType.LCG) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RandomGenerator"/> class
         /// </summary>
         /// <param name="seed">Seed that will be used in process of generating random numbers.</param>
-        public RandomGenerator(long seed)
+        public RandomGenerator(long seed) : this(seed, GeneratorType.LCG) { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RandomGenerator"/> class
+        /// </summary>
+        /// <param name="type">Type of random number generation algorithm that will be used.</param>
+        public RandomGenerator(GeneratorType type) : this(DefaultSeed, type) { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RandomGenerator"/> class
+        /// </summary>
+        /// <param name="seed">Seed that will be used in process of generating random numbers.</param>
+        /// <param name="type">Type of random number generation algorithm that will be used.</param>
+        public RandomGenerator(long seed, GeneratorType type)
         {
-            this.seed = seed % modulus;
+            switch(type)
+            {
+                case GeneratorType.LCG:
+                    Generator = new LCG(seed);
+                    break;
+                case GeneratorType.LFSR:
+                    Generator = new LFSR(seed);
+                    break;
+                default:
+                    throw new ArgumentException();
+            }
 
             SetupNoise();
         }
 
-        private long Forward()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RandomGenerator"/> class
+        /// </summary>
+        /// <param name="generator">Random number generator algorithm instance that will be used.</param>
+        public RandomGenerator(INumberGenerator generator)
         {
-            seed = (multiplier * seed + increment) % modulus;
-            return seed;
+            Generator = generator;
+            SetupNoise();
         }
+    }
+
+    public enum GeneratorType
+    {
+        LCG,
+        LFSR 
     }
 }

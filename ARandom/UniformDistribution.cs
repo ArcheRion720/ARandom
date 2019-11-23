@@ -1,4 +1,6 @@
-﻿namespace ARandom
+﻿using System;
+
+namespace ARandom
 {
     public partial class RandomGenerator
     {
@@ -9,7 +11,7 @@
         /// <seealso cref="Next(int, int)"/>
         public int Next()
         {
-            return (int)this.Forward();
+            return (int)Generator.Forward();
         }
 
         /// <summary>
@@ -22,7 +24,6 @@
         {
             return Next(0, max);
         }
-
 
         /// <summary>
         /// Generates random number within given range.
@@ -42,7 +43,7 @@
         /// <returns>Random floating-point number between 0.0 and 1.0.</returns>
         public double NextDouble()
         {
-            return (double)this.Forward() / (modulus - 1);
+            return Generator.NextDouble();
         }
 
         /// <summary>
